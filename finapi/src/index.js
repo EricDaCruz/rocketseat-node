@@ -49,4 +49,20 @@ app.get("/statement", verifyIfExistAccountCPF, (req, res) => {
    return res.status(200).json(customer.statement);
 });
 
+app.post("/deposit", verifyIfExistAccountCPF, (req, res) => {
+   const { customer } = req;
+   const { description, amount } = req.body;
+
+   const statementOperation = {
+      description,
+      amount,
+      created_at: new Date(),
+      type: "credit",
+   };
+
+   customer.statement.push(statementOperation);
+
+   res.status(201).send();
+});
+
 app.listen(3333, () => console.log("Server running http://localhost:3333"));
