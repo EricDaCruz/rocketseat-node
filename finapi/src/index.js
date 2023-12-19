@@ -113,4 +113,19 @@ app.post("/withdraw", verifyIfExistAccountCPF, (req, res) => {
    res.status(201).send();
 });
 
+app.put("/account", verifyIfExistAccountCPF, (req, res) => {
+   const { name } = req.body;
+   const { customer } = req;
+
+   customer.name = name;
+
+   res.status(201).send();
+});
+
+app.get("/account", verifyIfExistAccountCPF, (req, res) => {
+   const { customer } = req;
+
+   res.json(customer);
+});
+
 app.listen(3333, () => console.log("Server running http://localhost:3333"));
